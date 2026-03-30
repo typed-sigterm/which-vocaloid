@@ -12,35 +12,34 @@ defineProps<{
   currentSong: Song | null
   isLastSong: boolean
   isTransitioning: boolean
-  languageLabels: Record<'japanese' | 'chinese' | 'other', string>
 }>();
 
-const emit = defineEmits<{
+defineEmits<{
   home: []
   answer: [lang: 'japanese' | 'chinese' | 'other']
   next: []
-}>();
+}>(); ;
 </script>
 
 <template>
   <div class="min-h-screen flex flex-col">
     <header class="sticky top-0 z-10 border-b border-muted bg-default/80 backdrop-blur-md">
       <div class="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
-        <UButton icon="i-lucide-home" variant="ghost" color="neutral" size="sm" @click="emit('home')" />
+        <UButton icon="i-lucide-home" variant="ghost" color="neutral" size="sm" @click="$emit('home')" />
         <div class="flex items-center gap-3">
           <span class="text-sm text-muted tabular-nums">
             {{ answeredCount }} / {{ totalSongs }}
           </span>
-          <UBadge :label="`✅ ${currentScore}`" color="primary" variant="subtle" />
+          <UBadge :label="$t('playing.scoreBadge', { score: currentScore })" color="primary" variant="subtle" />
         </div>
       </div>
-      <UProgress :value="progressPercent" :max="100" color="primary" size="xs" class="rounded-none" />
+      <UProgress :model-value="progressPercent" :max="100" color="primary" size="xs" class="rounded-none" />
     </header>
 
     <main class="flex-1 max-w-xl mx-auto w-full px-4 py-5 flex flex-col gap-4">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-bold">
-          第 {{ currentIndex + 1 }} 首
+          {{ $t('playing.songIndex', { index: currentIndex + 1 }) }}
         </h2>
         <div v-if="hasAnsweredCurrent && currentRecord" class="flex items-center gap-1.5">
           <UIcon
@@ -50,8 +49,8 @@ const emit = defineEmits<{
           />
           <span class="text-sm font-medium" :class="currentRecord.correct ? 'text-green-500' : 'text-red-500'">
             {{ currentRecord.correct
-              ? '正确!'
-              : `正确答案：${languageLabels[currentSong?.language ?? 'japanese']}` }}
+              ? $t('playing.correct')
+              : $t('playing.wrongWithAnswer', { answer: $t(`language.${currentSong?.language ?? 'japanese'}`) }) }}
           </span>
         </div>
       </div>
@@ -78,17 +77,17 @@ const emit = defineEmits<{
         :answered="hasAnsweredCurrent"
         :correct-answer="currentSong?.language ?? null"
         :selected-answer="currentRecord?.answer ?? null"
-        @answer="emit('answer', $event)"
+        @answer="$emit('answer', $event)"
       />
 
       <Transition name="slide-up">
         <UButton
           v-if="hasAnsweredCurrent"
-          :label="isLastSong ? '查看结果' : '下一首'"
+          :label="isLastSong ? $t('playing.viewResult') : $t('playing.nextSong')"
           :icon="isLastSong ? 'i-lucide-flag' : 'i-lucide-chevron-right'"
           block
           size="lg"
-          @click="emit('next')"
+          @click="$emit('next')"
         />
       </Transition>
     </main>

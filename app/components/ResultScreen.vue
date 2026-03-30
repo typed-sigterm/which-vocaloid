@@ -8,7 +8,10 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits<{ restart: [], home: [] }>();
+defineEmits<{
+  restart: []
+  home: []
+}>();
 
 const expandedSong = ref<number | null>(null);
 
@@ -17,6 +20,10 @@ const total = computed(() => props.session?.songs?.length ?? 20);
 
 function getRecord(songId: number) {
   return props.session?.records.find(r => r.songId === songId) ?? null;
+}
+
+function getLanguageLabel(language: 'japanese' | 'chinese' | 'other') {
+  return $t(`language.${language}`);
 }
 
 onMounted(() => {
@@ -29,14 +36,13 @@ onMounted(() => {
   <div class="min-h-screen bg-default font-sans">
     <!-- Header -->
     <header class="sticky top-0 z-10 border-b border-muted bg-default/80 backdrop-blur-md">
-      <div class="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="max-w-xl mx-auto px-4 py-3 flex items-center gap-2">
         <h1 class="text-base font-bold">
-          游戏结果
+          {{ $t('result.title') }}
         </h1>
-        <div class="flex gap-2">
-          <UButton label="再来一局" icon="i-lucide-refresh-cw" size="sm" @click="emit('restart')" />
-          <UButton icon="i-lucide-home" variant="ghost" color="neutral" size="sm" @click="emit('home')" />
-        </div>
+        <span class="text-sm text-muted">
+          ◀ https://which-vocaloid.by-ts.top
+        </span>
       </div>
     </header>
 
@@ -46,7 +52,7 @@ onMounted(() => {
         <div class="absolute inset-0 bg-primary/3 pointer-events-none" />
         <div class="relative z-10">
           <p class="text-sm uppercase tracking-[0.25em] text-muted">
-            Result
+            {{ $t('result.hero') }}
           </p>
           <div class="mt-3">
             <span class="text-7xl font-black text-primary">
@@ -88,7 +94,7 @@ onMounted(() => {
             </div>
             <div class="flex items-center gap-2 shrink-0">
               <UBadge
-                :label="LANGUAGE_LABELS[song.language]"
+                :label="getLanguageLabel(song.language)"
                 :color="LANGUAGE_COLORS[song.language]"
                 variant="subtle"
                 size="sm"
@@ -105,7 +111,7 @@ onMounted(() => {
               <div class="pt-3 grid grid-cols-2 gap-3 text-sm">
                 <div>
                   <p class="text-xs text-muted mb-0.5">
-                    声库
+                    {{ $t('result.voice') }}
                   </p>
                   <p class="font-medium text-xs">
                     {{ song.voice }}
@@ -113,7 +119,7 @@ onMounted(() => {
                 </div>
                 <div>
                   <p class="text-xs text-muted mb-0.5">
-                    作者
+                    {{ $t('result.producer') }}
                   </p>
                   <p class="font-medium text-xs">
                     {{ song.producer }}
@@ -121,12 +127,12 @@ onMounted(() => {
                 </div>
                 <div>
                   <p class="text-xs text-muted mb-1">
-                    你的答案
+                    {{ $t('result.yourAnswer') }}
                   </p>
                   <UBadge
                     :label="getRecord(song.id)?.answer
-                      ? LANGUAGE_LABELS[getRecord(song.id)!.answer as keyof typeof LANGUAGE_LABELS]
-                      : '未作答'"
+                      ? getLanguageLabel(getRecord(song.id)!.answer as 'japanese' | 'chinese' | 'other')
+                      : $t('result.unanswered')"
                     :color="getRecord(song.id)?.correct ? 'success' : 'error'"
                     variant="subtle"
                     size="sm"
@@ -134,7 +140,7 @@ onMounted(() => {
                 </div>
                 <div>
                   <p class="text-xs text-muted mb-1">
-                    原曲
+                    {{ $t('result.original') }}
                   </p>
                   <UButton
                     v-if="song.link"
@@ -145,7 +151,7 @@ onMounted(() => {
                     color="neutral"
                     size="xs"
                   >
-                    查看
+                    {{ $t('result.view') }}
                   </UButton>
                 </div>
               </div>
@@ -154,10 +160,15 @@ onMounted(() => {
         </div>
       </div>
 
+      <p class="text-center text-muted">
+        <UIcon class="align-middle" name="i-lucide-share-2" />
+        {{ $t('result.shareTip') }}
+      </p>
+
       <!-- Bottom actions -->
       <div class="flex gap-3 pb-8">
-        <UButton label="再来一次" icon="i-lucide-refresh-cw" size="lg" block @click="emit('restart')" />
-        <UButton label="返回主页" icon="i-lucide-home" variant="outline" color="neutral" size="lg" block @click="emit('home')" />
+        <UButton :label="$t('result.playAgain')" icon="i-lucide-refresh-cw" size="lg" block @click="$emit('restart')" />
+        <UButton :label="$t('result.backHome')" icon="i-lucide-home" variant="outline" color="neutral" size="lg" block @click="$emit('home')" />
       </div>
     </main>
   </div>

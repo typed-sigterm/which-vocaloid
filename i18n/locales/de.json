@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "description": "Errate, welche Sprache in diesem Vocaloid-Song verwendet wird!"
+  },
+  "common": {
+    "language": "Sprache",
+    "locales": {
+      "en": "Englisch",
+      "zh-CN": "Vereinfachtes Chinesisch",
+      "de": "Deutsch"
+    },
+    "home": "Startseite"
+  },
+  "language": {
+    "japanese": "Japanisch",
+    "chinese": "Chinesisch",
+    "other": "Gemischt / Sonstiges"
+  },
+  "home": {
+    "subtitlePrefix": "Du wirst {count}",
+    "subtitleSuffix": "Songs hoeren und die verwendete Sprachkategorie erraten.",
+    "vocaloidTooltip": "Hier bezeichnet Vocaloid allgemein Songs, die mit Gesangssynthese-Technologie erstellt wurden.",
+    "startGame": "Spiel Starten",
+    "history": "Verlauf"
+  },
+  "selection": {
+    "title": "Waehle Songs",
+    "autoPicking": "Zufaellige Auswahl laeuft...",
+    "defaultHint": "Kacheln anklicken, Auswahl anpassen und dann bestaetigen.",
+    "backHome": "Zur Startseite",
+    "randomPick": "Zufaellig Auswaehlen",
+    "confirmStart": "Bestaetigen und Starten",
+    "needAtLeastOne": "Bitte waehle mindestens 1 Song, bevor du startest",
+    "confirmFailed": "Auswahl konnte nicht bestaetigt werden. Bitte versuche es erneut."
+  },
+  "playing": {
+    "scoreBadge": "Punkte {score}",
+    "songIndex": "Song {index}",
+    "correct": "Richtig!",
+    "wrongWithAnswer": "Richtige Antwort: {answer}",
+    "viewResult": "Ergebnis Anzeigen",
+    "nextSong": "Naechster Song"
+  },
+  "audio": {
+    "loading": "Laedt",
+    "pause": "Pause",
+    "play": "Abspielen",
+    "switchToChorus": "Zu Refrain-Ausschnitt wechseln",
+    "playFullSong": "Gesamten Song abspielen",
+    "loadFailed": "Audio konnte nicht geladen werden",
+    "retryHint": "Bitte pruefe deine Verbindung und versuche es erneut"
+  },
+  "songInfo": {
+    "correct": "Richtig Beantwortet!",
+    "incorrect": "Falsch Beantwortet",
+    "title": "Titel",
+    "singer": "Saenger",
+    "voice": "Voice",
+    "producer": "Produzent",
+    "viewOriginal": "Original Ansehen"
+  },
+  "result": {
+    "title": "Spielergebnis",
+    "hero": "Ergebnis",
+    "playAgain": "Nochmal Spielen",
+    "voice": "Voice",
+    "producer": "Produzent",
+    "yourAnswer": "Deine Antwort",
+    "unanswered": "Nicht Beantwortet",
+    "original": "Original",
+    "view": "Ansehen",
+    "backHome": "Zur Startseite",
+    "shareTip": "Screenshot teilen, um dein Ergebnis mit Freunden zu teilen!"
+  },
+  "history": {
+    "title": "Verlauf",
+    "empty": "Noch keine Eintraege. Starte dein erstes Spiel!",
+    "songsCount": "{count} Songs"
+  }
+}

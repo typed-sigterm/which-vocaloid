@@ -4,6 +4,8 @@ interface Props {
   correct?: boolean | null
 }
 defineProps<Props>();
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -23,7 +25,7 @@ defineProps<Props>();
         class="size-5 shrink-0"
       />
       <span class="text-sm font-semibold" :class="correct ? 'text-green-500' : 'text-red-500'">
-        {{ correct ? '回答正确！' : '回答错误' }}
+        {{ correct ? $t('songInfo.correct') : $t('songInfo.incorrect') }}
       </span>
     </div>
 
@@ -31,7 +33,7 @@ defineProps<Props>();
       <!-- Title -->
       <div>
         <p class="text-xs text-muted mb-1">
-          曲名
+          {{ $t('songInfo.title') }}
         </p>
         <p class="text-base font-bold text-highlighted leading-tight">
           {{ song?.title }}
@@ -41,7 +43,7 @@ defineProps<Props>();
       <!-- Vocaloid -->
       <div>
         <p class="text-xs text-muted mb-1">
-          歌手
+          {{ $t('songInfo.singer') }}
         </p>
         <p class="text-sm font-medium">
           {{ song?.singer }}
@@ -51,13 +53,13 @@ defineProps<Props>();
       <!-- voice + language -->
       <div>
         <p class="text-xs text-muted mb-1">
-          声库
+          {{ $t('songInfo.voice') }}
         </p>
         <div class="flex items-center gap-2 flex-wrap">
           <UBadge :label="song?.voice" color="neutral" variant="outline" size="sm" />
           <UBadge
             v-if="song?.language"
-            :label="LANGUAGE_LABELS[song.language]"
+            :label="$t(`language.${song.language}`)"
             :color="LANGUAGE_COLORS[song.language]"
             variant="subtle"
             size="sm"
@@ -68,7 +70,7 @@ defineProps<Props>();
       <!-- Producer -->
       <div>
         <p class="text-xs text-muted mb-1">
-          作者 / P 主
+          {{ $t('songInfo.producer') }}
         </p>
         <p class="text-sm text-dimmed">
           {{ song?.producer }}
@@ -88,7 +90,7 @@ defineProps<Props>();
           size="sm"
           class="w-full"
         >
-          查看原曲
+          {{ $t('songInfo.viewOriginal') }}
         </UButton>
       </div>
     </div>

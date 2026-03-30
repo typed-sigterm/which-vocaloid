@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "description": "猜猜这首术曲是什么语言的？"
+  },
+  "common": {
+    "language": "语言",
+    "locales": {
+      "en": "English",
+      "zh-CN": "简体中文",
+      "de": "Deutsch"
+    },
+    "home": "主页"
+  },
+  "language": {
+    "japanese": "日语",
+    "chinese": "中文",
+    "other": "混合 / 其他"
+  },
+  "home": {
+    "subtitlePrefix": "你将听到 {count} 首",
+    "subtitleSuffix": "歌曲，并推测其使用的声库语言。",
+    "vocaloidTooltip": "此处泛指使用歌声合成技术制作的歌曲。",
+    "startGame": "开始游戏",
+    "history": "历史记录"
+  },
+  "selection": {
+    "title": "选择歌曲",
+    "autoPicking": "正在随机抽取...",
+    "defaultHint": "可点击方框调整选题，确认后进入答题",
+    "backHome": "返回首页",
+    "randomPick": "随机抽取",
+    "confirmStart": "确认并开始",
+    "needAtLeastOne": "至少选择 1 题即可开始",
+    "confirmFailed": "选题确认失败，请重试"
+  },
+  "playing": {
+    "scoreBadge": "得分 {score}",
+    "songIndex": "第 {index} 首",
+    "correct": "正确！",
+    "wrongWithAnswer": "正确答案：{answer}",
+    "viewResult": "查看结果",
+    "nextSong": "下一首"
+  },
+  "audio": {
+    "loading": "加载中",
+    "pause": "暂停",
+    "play": "播放",
+    "switchToChorus": "切换到副歌片段",
+    "playFullSong": "播放完整歌曲",
+    "loadFailed": "音频加载失败",
+    "retryHint": "请检查网络后重试"
+  },
+  "songInfo": {
+    "correct": "回答正确！",
+    "incorrect": "回答错误",
+    "title": "曲名",
+    "singer": "歌手",
+    "voice": "声库",
+    "producer": "作者",
+    "viewOriginal": "查看原曲"
+  },
+  "result": {
+    "title": "游戏结束",
+    "hero": "成绩",
+    "playAgain": "再来一次",
+    "voice": "声库",
+    "producer": "作者",
+    "yourAnswer": "你的答案",
+    "unanswered": "未作答",
+    "original": "原曲",
+    "view": "查看",
+    "backHome": "返回主页",
+    "shareTip": "截图分享你的成绩给朋友吧！"
+  },
+  "history": {
+    "title": "历史记录",
+    "empty": "暂无记录，开始你的第一局游戏吧！",
+    "songsCount": "{count} 首歌曲"
+  }
+}

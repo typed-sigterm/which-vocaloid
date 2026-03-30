@@ -233,10 +233,10 @@ watch(() => props.songId, () => {
         block
         @click="togglePlay"
       >
-        {{ isLoading ? '加载中' : isPlaying ? '暂停' : '播放' }}
+        {{ isLoading ? $t('audio.loading') : isPlaying ? $t('audio.pause') : $t('audio.play') }}
       </UButton>
 
-      <UTooltip :text="isFullSong ? '切换到副歌片段' : '播放完整歌曲'">
+      <UTooltip :text="isFullSong ? $t('audio.switchToChorus') : $t('audio.playFullSong')">
         <UButton
           :icon="isFullSong ? 'i-lucide-music-2' : 'i-lucide-disc-3'"
           variant="outline"
@@ -254,8 +254,8 @@ watch(() => props.songId, () => {
       icon="i-lucide-alert-triangle"
       color="error"
       variant="soft"
-      title="音频加载失败"
-      description="请检查网络后重试"
+      :title="$t('audio.loadFailed')"
+      :description="$t('audio.retryHint')"
       class="mt-3"
     />
   </div>

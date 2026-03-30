@@ -29,9 +29,21 @@ const sessions = ref<GameSession[]>([]);
 const selectedSongIds = ref<number[]>([]);
 const autoPicking = ref(false);
 const selectionHint = ref('');
+const { locale } = useI18n();
 
 const availableSongIds = SONGS.map(song => song.id);
 let autoPickTimer: ReturnType<typeof setTimeout> | null = null;
+
+useSeoMeta({
+  description: () => $t('meta.description'),
+  ogDescription: () => $t('meta.description'),
+});
+
+useHead(() => ({
+  htmlAttrs: {
+    lang: locale.value,
+  },
+}));
 
 function triggerConfetti() {
   confetti({
@@ -81,11 +93,6 @@ function toggleSongSelection(songId: number) {
     return;
   }
 
-  if (selectedSongIds.value.length >= GAME_SIZE) {
-    selectionHint.value = `最多选择 ${GAME_SIZE} 题`;
-    return;
-  }
-
   selectedSongIds.value.push(songId);
   selectionHint.value = '';
 }
@@ -95,13 +102,13 @@ function repickSelection() {
 }
 
 function confirmSelection() {
-  if (selectedSongIds.value.length !== GAME_SIZE) {
-    selectionHint.value = `请先选满 ${GAME_SIZE} 题再开始`;
+  if (selectedSongIds.value.length < 1) {
+    selectionHint.value = $t('selection.needAtLeastOne');
     return;
   }
   const confirmed = confirmSongSelection(selectedSongIds.value);
   if (!confirmed)
-    selectionHint.value = '选题确认失败，请重试';
+    selectionHint.value = $t('selection.confirmFailed');
 }
 
 async function handleNext() {
@@ -147,7 +154,7 @@ onBeforeUnmount(() => {
             <!-- Logo area -->
             <div class="flex justify-center">
               <div class="flex items-center p-4 rounded-2xl bg-primary/10 border border-primary/20">
-                <UIcon name="i-lucide-music-2" class="size-12 text-primary" />
+                <UIcon name="i-lucide-music-2" class="size-12 text-primary" mode="svg" />
               </div>
             </div>
 
@@ -155,26 +162,24 @@ onBeforeUnmount(() => {
               Which <span class="text-primary">Vocaloid</span>?
             </h1>
             <p class="text-muted mt-2 text-base leading-relaxed">
-              你将听到
-              {{ GAME_SIZE }}
-              首
-              <UTooltip text="此处泛指使用歌声合成技术制作的歌曲">
+              {{ $t('home.subtitlePrefix', { count: GAME_SIZE }) }}
+              <UTooltip :text="$t('home.vocaloidTooltip')">
                 <!-- eslint-disable-next-line -->
                 <ULink class="border-b-2 border-dashed" href="https://wikipedia.org/wiki/Vocaloid" target="_blank">Vocaloid</ULink>
                 <UIcon name="i-lucide-asterisk" class="size-3 text-muted align-super" />
               </UTooltip>
-              歌曲，并推测其使用的声库语言
+              {{ $t('home.subtitleSuffix') }}
             </p>
 
             <div class="flex gap-2 mt-6">
               <UButton
-                label="开始游戏"
+                :label="$t('home.startGame')"
                 icon="i-lucide-play"
                 block
                 @click="startNewGame"
               />
               <UButton
-                label="历史记录"
+                :label="$t('home.history')"
                 icon="i-lucide-history"
                 variant="outline"
                 color="neutral"
@@ -211,7 +216,6 @@ onBeforeUnmount(() => {
           :current-song="currentSong"
           :is-last-song="isLastSong"
           :is-transitioning="isTransitioning"
-          :language-labels="LANGUAGE_LABELS"
           @home="goHome"
           @answer="handleAnswer"
           @next="handleNext"
@@ -228,12 +232,12 @@ onBeforeUnmount(() => {
     </Transition>
 
     <!-- History modal -->
-    <UModal v-model:open="historyOpen" title="历史记录">
+    <UModal v-model:open="historyOpen" :title="$t('history.title')">
       <template #body>
         <div v-if="sessions.length === 0" class="py-10 text-center">
           <UIcon name="i-lucide-history" class="size-10 mx-auto mb-3 text-muted" />
           <p class="text-muted text-sm">
-            暂无记录，开始你的第一局游戏吧！
+            {{ $t('history.empty') }}
           </p>
         </div>
         <div v-else class="space-y-2 max-h-96 overflow-y-auto pr-1">
@@ -247,7 +251,7 @@ onBeforeUnmount(() => {
                 {{ s.date }}
               </p>
               <p class="text-xs text-muted">
-                {{ s.songs.length }} 首歌曲
+                {{ $t('history.songsCount', { count: s.songs.length }) }}
               </p>
             </div>
             <div class="text-right">

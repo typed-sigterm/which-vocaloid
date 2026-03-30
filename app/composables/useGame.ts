@@ -17,10 +17,10 @@ export interface GameSession {
 const STORAGE_KEY = 'game-records';
 const GAME_SIZE = 20;
 
-function buildGameSession(songs: Song[]): GameSession {
+function buildGameSession(songs: Song[], localeCode: string): GameSession {
   return {
     id: Date.now().toString(),
-    date: new Date().toLocaleString('zh-CN'),
+    date: new Date().toLocaleString(localeCode),
     songs,
     records: [],
     score: 0,
@@ -29,6 +29,7 @@ function buildGameSession(songs: Song[]): GameSession {
 }
 
 export function useGame() {
+  const { locale } = useI18n();
   const currentSession = useState<GameSession | null>('game-session', () => null);
   const currentIndex = useState<number>('game-index', () => 0);
   const gamePhase = useState<'home' | 'selecting' | 'playing' | 'result'>('game-phase', () => 'home');
@@ -40,17 +41,17 @@ export function useGame() {
   }
 
   function confirmSongSelection(songIds: number[]) {
-    if (songIds.length !== GAME_SIZE)
+    if (songIds.length < 1)
       return false;
 
     const selectedSongs = songIds
       .map(id => SONGS.find(song => song.id === id))
       .filter((song): song is Song => !!song);
 
-    if (selectedSongs.length !== GAME_SIZE)
+    if (selectedSongs.length < 1)
       return false;
 
-    const session = buildGameSession(selectedSongs);
+    const session = buildGameSession(selectedSongs, locale.value);
     currentSession.value = session;
     currentIndex.value = 0;
     gamePhase.value = 'playing';

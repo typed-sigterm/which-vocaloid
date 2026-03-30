@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "description": "Guess what language a Vocaloid song is in!"
+  },
+  "common": {
+    "language": "Language",
+    "locales": {
+      "en": "English",
+      "zh-CN": "Simplified Chinese",
+      "de": "German"
+    },
+    "home": "Home"
+  },
+  "language": {
+    "japanese": "Japanese",
+    "chinese": "Chinese",
+    "other": "Mixed / Other"
+  },
+  "home": {
+    "subtitlePrefix": "You will hear {count}",
+    "subtitleSuffix": "songs and guess the voice language used.",
+    "vocaloidTooltip": "Here, Vocaloid broadly refers to songs made with singing synthesis technology.",
+    "startGame": "Start Game",
+    "history": "History"
+  },
+  "selection": {
+    "title": "Select songs",
+    "autoPicking": "Picking randomly...",
+    "defaultHint": "Click tiles to adjust your selection, then confirm to start.",
+    "backHome": "Back to Home",
+    "randomPick": "Random Pick",
+    "confirmStart": "Confirm and Start",
+    "needAtLeastOne": "Please select at least 1 song before starting",
+    "confirmFailed": "Failed to confirm selection. Please try again."
+  },
+  "playing": {
+    "scoreBadge": "Score {score}",
+    "songIndex": "Song {index}",
+    "correct": "Correct!",
+    "wrongWithAnswer": "Correct answer: {answer}",
+    "viewResult": "View Result",
+    "nextSong": "Next Song"
+  },
+  "audio": {
+    "loading": "Loading",
+    "pause": "Pause",
+    "play": "Play",
+    "switchToChorus": "Switch to chorus clip",
+    "playFullSong": "Play full song",
+    "loadFailed": "Failed to load audio",
+    "retryHint": "Please check your network and try again"
+  },
+  "songInfo": {
+    "correct": "Correct Answer!",
+    "incorrect": "Wrong Answer",
+    "title": "Title",
+    "singer": "Singer",
+    "voice": "Voice",
+    "producer": "Producer",
+    "viewOriginal": "View Original"
+  },
+  "result": {
+    "title": "Game Result",
+    "hero": "Result",
+    "playAgain": "Play Again",
+    "voice": "Voice",
+    "producer": "Producer",
+    "yourAnswer": "Your Answer",
+    "unanswered": "No Answer",
+    "original": "Original",
+    "view": "View",
+    "backHome": "Back to Home",
+    "shareTip": "Take a screenshot to share your result with friends!"
+  },
+  "history": {
+    "title": "History",
+    "empty": "No records yet. Start your first game!",
+    "songsCount": "{count} songs"
+  }
+}

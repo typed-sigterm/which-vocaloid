@@ -1,9 +1,21 @@
 export default defineNuxtConfig({
-  modules: ['@nuxt/ui'],
+  modules: [
+    '@nuxt/ui',
+    '@nuxtjs/i18n',
+  ],
+
+  i18n: {
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'zh-CN', name: '简体中文', file: 'zh-CN.json' },
+      { code: 'de', name: 'Deutsch', file: 'de.json' },
+    ],
+  },
 
   app: {
     head: {
-      htmlAttrs: { lang: 'en-US' },
       title: 'Which Vocaloid',
       meta: [
         { name: 'description', content: 'Guess what language a Vocaloid song is in!' },
@@ -26,7 +38,22 @@ export default defineNuxtConfig({
       include: [
         '@vue/devtools-core',
         '@vue/devtools-kit',
+        'canvas-confetti',
       ],
+    },
+  },
+
+  fonts: {
+    provider: 'bunny',
+    providers: {
+      google: false,
+      googleicons: false,
+    },
+  },
+
+  icon: {
+    clientBundle: {
+      scan: true,
     },
   },
 });

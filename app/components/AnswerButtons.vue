@@ -13,15 +13,15 @@ withDefaults(defineProps<Props>(), {
   selectedAnswer: null,
 });
 
-const emit = defineEmits<{
+defineEmits<{
   answer: [lang: 'japanese' | 'chinese' | 'other']
 }>();
 
-const options = [
-  { value: 'japanese' as const, label: '日语', flag: '🇯🇵' },
-  { value: 'chinese' as const, label: '中文', flag: '🇨🇳' },
-  { value: 'other' as const, label: '混合 / 其他', flag: '🌐' },
-];
+const options = computed(() => [
+  { value: 'japanese' as const, label: $t('language.japanese'), flag: '🇯🇵' },
+  { value: 'chinese' as const, label: $t('language.chinese'), flag: '🇨🇳' },
+  { value: 'other' as const, label: $t('language.other'), flag: '🌐' },
+]);
 </script>
 
 <template>
@@ -40,7 +40,7 @@ const options = [
               : 'border-muted bg-muted text-muted opacity-40'
           : 'border-accented bg-elevated text-default hover:border-primary hover:bg-primary/5 hover:text-primary active:scale-95',
       ]"
-      @click="() => !answered && !disabled && emit('answer', option.value)"
+      @click="() => !answered && !disabled && $emit('answer', option.value)"
     >
       <div v-if="answered" class="absolute top-2 right-2">
         <UIcon

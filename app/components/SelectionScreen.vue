@@ -15,7 +15,7 @@ const emit = defineEmits<{
 }>();
 
 const selectedCount = computed(() => props.selectedSongIds.length);
-const canConfirmSelection = computed(() => selectedCount.value === props.gameSize && !props.autoPicking);
+const canConfirmSelection = computed(() => selectedCount.value >= 1 && !props.autoPicking);
 
 function isSelected(songId: number) {
   return props.selectedSongIds.includes(songId);
@@ -25,25 +25,17 @@ function isSelected(songId: number) {
 <template>
   <div class="min-h-screen flex items-center justify-center p-4 sm:p-6">
     <div class="w-full max-w-3xl rounded-2xl border border-muted bg-elevated/70 backdrop-blur-sm p-4 sm:p-6 shadow-lg">
-      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-        <h2 class="text-xl sm:text-2xl font-black tracking-tight">
-          选择 {{ gameSize }} 首歌曲
-        </h2>
-        <UBadge
-          :label="`${selectedCount} / ${gameSize}`"
-          :color="selectedCount === gameSize ? 'primary' : 'neutral'"
-          variant="subtle"
-          size="lg"
-        />
-      </div>
+      <h2 class="text-xl sm:text-2xl font-black tracking-tight mb-2">
+        {{ $t('selection.title', { count: gameSize }) }}
+      </h2>
 
       <div class="mb-4 text-sm text-muted h-5">
         <span v-if="autoPicking" class="inline-flex items-center gap-2">
           <UIcon name="i-lucide-loader-circle" class="size-4 animate-spin" />
-          正在随机抽取...
+          {{ $t('selection.autoPicking') }}
         </span>
         <span v-else-if="selectionHint">{{ selectionHint }}</span>
-        <span v-else>可点击方框调整选题，确认后进入答题</span>
+        <span v-else>{{ $t('selection.defaultHint') }}</span>
       </div>
 
       <div class="question-grid" :class="{ 'is-auto-picking': autoPicking }">
@@ -61,14 +53,14 @@ function isSelected(songId: number) {
 
       <div class="mt-6 flex flex-col sm:flex-row gap-2">
         <UButton
-          label="返回首页"
+          :label="$t('selection.backHome')"
           icon="i-lucide-home"
           variant="outline"
           color="neutral"
           @click="emit('home')"
         />
         <UButton
-          label="随机抽取"
+          :label="$t('selection.randomPick')"
           icon="i-lucide-shuffle"
           variant="soft"
           color="neutral"
@@ -76,7 +68,7 @@ function isSelected(songId: number) {
           @click="emit('repick')"
         />
         <UButton
-          label="确认并开始"
+          :label="$t('selection.confirmStart')"
           icon="i-lucide-check"
           class="sm:ml-auto"
           :disabled="!canConfirmSelection"
